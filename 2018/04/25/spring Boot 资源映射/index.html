@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="暴躁程序猿">
 <meta property="og:description" content="spring Boot 资源映射###Spring Boot 的默认资源映射   默认配置的 /** 映射到 /static （或/public、/resources、/META-INF/resources） 默认配置的 /webjars/** 映射到 classpath:/META-INF/resources/webjars/ static、public、resources 等目录都在 clas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-18T13:32:00.702Z">
+<meta property="og:updated_time" content="2018-09-18T13:48:47.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring Boot 资源映射">
 <meta name="twitter:description" content="spring Boot 资源映射###Spring Boot 的默认资源映射   默认配置的 /** 映射到 /static （或/public、/resources、/META-INF/resources） 默认配置的 /webjars/** 映射到 classpath:/META-INF/resources/webjars/ static、public、resources 等目录都在 clas">
@@ -191,7 +191,8 @@
 <li>static、public、resources 等目录都在 classpath: 下面（如 src/main/resources/static）</li>
 </ul>
 </blockquote>
-<h3 id="2-自定义资源映射（推荐）"><a href="#2-自定义资源映射（推荐）" class="headerlink" title="2.自定义资源映射（推荐）"></a>2.自定义资源映射（推荐）</h3><p>  继承 WebMvcConfigurerAdapter 并重写方法 addResourceHandlers，例如：</p>
+<h3 id="2-自定义资源映射（推荐）"><a href="#2-自定义资源映射（推荐）" class="headerlink" title="2.自定义资源映射（推荐）"></a>2.自定义资源映射（推荐）</h3><a id="more"></a>  
+<p>  继承 WebMvcConfigurerAdapter 并重写方法 addResourceHandlers，例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;</span><br><span class="line">import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class MyWebAppConfigurer extends WebMvcConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public void addResourceHandlers(ResourceHandlerRegistry registry) &#123;</span><br><span class="line"></span><br><span class="line">    String basePath = System.getProperty(&quot;user.home&quot;)+File.separator+&quot;voice/&quot;;</span><br><span class="line">    //将classpath:/voice/ 映射到系统用户目录中voice文件夹</span><br><span class="line">    registry.addResourceHandler(&quot;/voice/**&quot;).addResourceLocations(&quot;file:&quot;+basePath);</span><br><span class="line">    //将classpath:/image/ 映射到D:/image/文件夹  </span><br><span class="line">    registry.addResourceHandler(&quot;/image/**&quot;).addResourceLocations(&quot;file:D:/image/&quot;);</span><br><span class="line">    //将classpath:/image1/ 映射到classpath:/img1/文件夹  </span><br><span class="line">    registry.addResourceHandler(&quot;/image1/**&quot;).addResourceLocations(&quot;classpath:/img1/&quot;);</span><br><span class="line">    super.addResourceHandlers(registry);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将classpath:/voice/ 映射到系统用户目录中voice文件夹<br>将classpath:/image/ 映射到D:/image/文件夹<br>将classpath:/image1/ 映射到classpath:/img1/文件夹
 　　</p>
@@ -358,7 +359,6 @@
     		&copy; 2018 暴躁程序猿
     	</div>
       	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
   </div>
